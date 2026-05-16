@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Certification badge placeholder</title>
+  <desc id="desc">Placeholder for a certification badge or credential image.</desc>
+  <rect width="640" height="420" fill="#060b14"/>
+  <rect x="70" y="55" width="500" height="310" rx="10" fill="#0d1627" stroke="#2196f3" stroke-width="3"/>
+  <circle cx="320" cy="175" r="72" fill="none" stroke="#00e5ff" stroke-width="10"/>
+  <path d="M285 175L310 200L358 145" fill="none" stroke="#00e676" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="320" y="290" text-anchor="middle" fill="#f0f6ff" font-family="Arial, sans-serif" font-size="38" font-weight="700">Certificate</text>
+  <text x="320" y="330" text-anchor="middle" fill="#c9d8f0" font-family="monospace" font-size="18" letter-spacing="5">REPLACE IMAGE</text>
+</svg>
