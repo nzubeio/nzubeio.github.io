@@ -18,7 +18,7 @@ window.siteContent = {
   owner: "NZUBE IGWEAMAKA",
   nav: {
     name: "NZUBE",
-    avatar: "assets/profile.jpg"
+    avatar: "assets/profile.jpg?v=20260516b"
   },
 
   hero: {
