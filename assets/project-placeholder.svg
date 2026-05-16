@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Project image placeholder</title>
+  <desc id="desc">Cybersecurity themed placeholder for a project screenshot.</desc>
+  <rect width="1200" height="675" fill="#060b14"/>
+  <rect x="110" y="90" width="980" height="495" rx="8" fill="#050910" stroke="#2196f3" stroke-width="3"/>
+  <path d="M110 175H1090M245 90V585M420 90V585M595 90V585M770 90V585M945 90V585" stroke="#15365f" stroke-opacity=".55" stroke-width="2"/>
+  <text x="165" y="145" fill="#00e5ff" font-family="monospace" font-size="28" letter-spacing="8">PROJECT SCREENSHOT</text>
+  <text x="165" y="265" fill="#f0f6ff" font-family="Arial, sans-serif" font-size="70" font-weight="700">Add Your Image</text>
+  <text x="165" y="330" fill="#c9d8f0" font-family="Arial, sans-serif" font-size="32">Use this space for dashboards, terminals, diagrams, or lab screenshots.</text>
+  <polyline points="170,485 315,450 460,470 605,390 750,420 895,350" fill="none" stroke="#00e5ff" stroke-width="10"/>
+  <circle cx="605" cy="390" r="13" fill="#00e5ff"/>
+  <circle cx="895" cy="350" r="13" fill="#00e5ff"/>
+</svg>
