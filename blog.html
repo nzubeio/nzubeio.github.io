@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog | Nzube Igweamaka</title>
+<link rel="icon" type="image/jpeg" href="assets/profile.jpg?v=20260516" />
+<link rel="apple-touch-icon" href="assets/profile.jpg?v=20260516" />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #060b14;
+    --surface: #0d1627;
+    --surface2: #111e35;
+    --border: #1a2f52;
+    --accent: #1565c0;
+    --accent2: #2196f3;
+    --accent3: #00e5ff;
+    --text: #c9d8f0;
+    --muted: #4a6080;
+    --white: #f0f6ff;
+    --green: #00e676;
+    --yellow: #ffd740;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+  a, span, p, h1, h2, h3, div { overflow-wrap: anywhere; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 4rem;
+    background: rgba(6,11,20,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-avatar {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    object-position: center 34%;
+    border: 1px solid rgba(0,229,255,0.55);
+    border-radius: 50%;
+    background: var(--surface2);
+    box-shadow: 0 0 10px rgba(0,229,255,0.12);
+  }
+  .nav-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.14rem; color: var(--accent3);
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .nav-toggle span,
+  .nav-toggle::before,
+  .nav-toggle::after {
+    content: '';
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--accent3);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  nav.nav-open .nav-toggle span { opacity: 0; }
+  nav.nav-open .nav-toggle::before { transform: translateY(7px) rotate(45deg); }
+  nav.nav-open .nav-toggle::after { transform: translateY(-7px) rotate(-45deg); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem; color: var(--muted);
+    text-decoration: none; letter-spacing: 2px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--accent3); }
+
+  main {
+    position: relative;
+    padding: 9rem 4rem 5rem;
+    overflow: hidden;
+  }
+  .page-grid {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(21,101,192,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(21,101,192,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .blog-hero,
+  .blog-layout { position: relative; z-index: 1; }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--accent3);
+    letter-spacing: 4px; margin-bottom: 0.9rem;
+  }
+  h1 {
+    max-width: 880px;
+    font-size: clamp(2.7rem, 7vw, 5.2rem);
+    line-height: 0.98;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .blog-intro {
+    max-width: 680px;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 3.5rem;
+  }
+  .blog-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .posts {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .post-card,
+  .sidebar-panel {
+    background: rgba(13,22,39,0.92);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .post-card {
+    padding: 1.6rem;
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .post-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-3px);
+  }
+  .post-image {
+    width: calc(100% + 3.2rem);
+    max-width: none;
+    height: 240px;
+    margin: -1.6rem -1.6rem 1.5rem;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .post-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 0.9rem;
+  }
+  .post-title {
+    font-size: 1.35rem;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .post-excerpt {
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .post-link {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--accent3);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+  .post-link:hover { color: var(--white); }
+  .post-card:focus-within {
+    border-color: var(--accent3);
+    box-shadow: 0 0 0 2px rgba(0,229,255,0.16);
+  }
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.1rem;
+  }
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.65rem;
+    letter-spacing: 1px;
+  }
+  .sidebar {
+    display: grid;
+    gap: 1rem;
+    position: sticky;
+    top: 6rem;
+  }
+  .sidebar-panel {
+    padding: 1.3rem;
+  }
+  .sidebar-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent3);
+    letter-spacing: 2px;
+    margin-bottom: 0.9rem;
+  }
+  .sidebar-panel p,
+  .sidebar-panel li {
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 0.9rem;
+  }
+  .sidebar-panel ul {
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 0.45rem;
+  }
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 1024px) {
+    nav { padding: 0.85rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    main { padding: 8rem 2rem 4.5rem; }
+    .blog-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.85rem 1.25rem; gap: 1rem; }
+    .nav-toggle { display: inline-flex; flex-shrink: 0; }
+    .nav-links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      padding: 0.6rem 1.25rem 1rem;
+      background: rgba(6,11,20,0.97);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.25);
+    }
+    nav.nav-open .nav-links { display: flex; }
+    .nav-links li { border-top: 1px solid rgba(26,47,82,0.65); }
+    .nav-links a {
+      display: block;
+      padding: 0.9rem 0;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+    .nav-avatar { width: 38px; height: 38px; }
+    .nav-logo { font-size: 1rem; }
+    main { padding: 6.75rem 1.25rem 4rem; }
+    .page-grid { background-size: 44px 44px; }
+    .section-label { letter-spacing: 2px; }
+    h1 { font-size: clamp(2.35rem, 12vw, 4rem); }
+    .blog-intro { font-size: 1rem; margin-bottom: 2.5rem; }
+    .post-card { padding: 1.25rem; }
+    .post-image {
+      width: calc(100% + 2.5rem);
+      height: 190px;
+      margin: -1.25rem -1.25rem 1.25rem;
+    }
+    .post-title { font-size: 1.15rem; }
+    .sidebar { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem 1.25rem; line-height: 1.7; letter-spacing: 1px; }
+  }
+
+  @media (max-width: 420px) {
+    nav { padding-inline: 1rem; }
+    main { padding-inline: 1rem; }
+    h1 { font-size: clamp(2rem, 11vw, 3rem); }
+    .post-meta,
+    .post-link { letter-spacing: 1px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="index.html" aria-label="Go to homepage top">
+    <img class="nav-avatar" src="assets/profile.jpg" alt="Nzube profile photo" />
+    <span class="nav-logo">NZUBE</span>
+  </a>
+  <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html#about">ABOUT</a></li>
+    <li><a href="index.html#projects">PROJECTS</a></li>
+    <li><a href="index.html#skills">SKILLS</a></li>
+    <li><a href="index.html#certifications">CERTIFICATIONS</a></li>
+    <li><a class="active" href="blog.html">BLOG</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="page-grid"></div>
+  <header class="blog-hero">
+    <div class="section-label">// FIELD NOTES</div>
+    <h1>Blog & SOC Learning Journal</h1>
+    <p class="blog-intro">
+      Notes from labs, security concepts, detection practice, and the messy middle of learning cybersecurity in public.
+    </p>
+  </header>
+
+  <div class="blog-layout">
+    <section class="posts" aria-label="Blog posts">
+      <article class="post-card" data-url="posts/home-soc-lab.html" tabindex="0" role="link" aria-label="Read How I Am Building My First Home SOC Lab">
+        <img class="post-image" src="assets/blog-home-soc-lab.svg" alt="Home SOC lab dashboard illustration" />
+        <div class="post-meta">
+          <span>PUBLISHED</span>
+          <span>7 MIN READ</span>
+        </div>
+        <h2 class="post-title">How I Am Building My First Home SOC Lab</h2>
+        <p class="post-excerpt">
+          A practical walkthrough of the tools, goals, and decisions behind my first personal SOC environment.
+        </p>
+        <div class="tags">
+          <span class="tag">SOC LAB</span>
+          <span class="tag">SPLUNK</span>
+          <span class="tag">LINUX</span>
+        </div>
+        <a class="post-link" href="posts/home-soc-lab.html">READ NOTE</a>
+      </article>
+
+      <article class="post-card">
+        <div class="post-meta">
+          <span>COMING SOON</span>
+          <span>4 MIN READ</span>
+        </div>
+        <h2 class="post-title">What I Learned From Reading Authentication Logs</h2>
+        <p class="post-excerpt">
+          Early lessons from spotting failed logins, suspicious timing, and patterns that matter to Tier 1 analysts.
+        </p>
+        <div class="tags">
+          <span class="tag">LOG ANALYSIS</span>
+          <span class="tag">DETECTION</span>
+          <span class="tag">BLUE TEAM</span>
+        </div>
+        <a class="post-link" href="#">READ NOTE</a>
+      </article>
+
+      <article class="post-card">
+        <div class="post-meta">
+          <span>COMING SOON</span>
+          <span>6 MIN READ</span>
+        </div>
+        <h2 class="post-title">My Beginner Roadmap Into SOC Analysis</h2>
+        <p class="post-excerpt">
+          The learning path I am following: networking, Linux, SIEM basics, incident response, and hands-on labs.
+        </p>
+        <div class="tags">
+          <span class="tag">ROADMAP</span>
+          <span class="tag">CAREER</span>
+          <span class="tag">SOC TIER 1</span>
+        </div>
+        <a class="post-link" href="#">READ NOTE</a>
+      </article>
+    </section>
+
+    <aside class="sidebar" aria-label="Blog sidebar">
+      <div class="sidebar-panel">
+        <h2 class="sidebar-title">JOURNAL STATUS</h2>
+        <p><span class="status-dot"></span>Drafting first writeups and lab notes.</p>
+      </div>
+      <div class="sidebar-panel">
+        <h2 class="sidebar-title">TOPICS</h2>
+        <ul>
+          <li>Threat detection</li>
+          <li>SIEM practice</li>
+          <li>TryHackMe notes</li>
+          <li>Home lab builds</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  © 2026 NZUBE IGWEAMAKA · BLOG · CYBERSECURITY PORTFOLIO
+</footer>
+
+<script src="content.js?v=20260515-project-modal"></script>
+<script>
+  const content = window.siteContent;
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }[char]));
+  const tagsHTML = (tags) => (tags || []).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
+
+  function renderBlogContent() {
+    if (!content) return;
+
+    document.title = `Blog | ${content.about.terminal.name}`;
+    document.querySelector('.nav-avatar').src = content.nav.avatar;
+    document.querySelector('.nav-logo').textContent = content.nav.name;
+    document.querySelector('.blog-hero .section-label').textContent = content.blog.label;
+    document.querySelector('.blog-hero h1').textContent = content.blog.title;
+    document.querySelector('.blog-intro').textContent = content.blog.intro;
+
+    document.querySelector('.posts').innerHTML = content.blogPosts.map((post) => `
+      <article class="post-card" data-url="${escapeHTML(post.url)}" tabindex="0" role="link" aria-label="Read ${escapeHTML(post.title)}">
+        ${post.image ? `<img class="post-image" src="${escapeHTML(post.image)}" alt="${escapeHTML(post.imageAlt || post.title)}" />` : ''}
+        <div class="post-meta">
+          <span>${escapeHTML(post.status)}</span>
+          <span>${escapeHTML(post.readTime)}</span>
+        </div>
+        <h2 class="post-title">${escapeHTML(post.title)}</h2>
+        <p class="post-excerpt">${escapeHTML(post.excerpt)}</p>
+        <div class="tags">${tagsHTML(post.tags)}</div>
+        <a class="post-link" href="${escapeHTML(post.url)}">READ NOTE</a>
+      </article>
+    `).join('');
+
+    const sidebarPanels = document.querySelectorAll('.sidebar-panel');
+    sidebarPanels[0].innerHTML = `
+      <h2 class="sidebar-title">JOURNAL STATUS</h2>
+      <p><span class="status-dot"></span>${escapeHTML(content.blog.status)}</p>
+    `;
+    sidebarPanels[1].innerHTML = `
+      <h2 class="sidebar-title">TOPICS</h2>
+      <ul>${content.blog.topics.map((topic) => `<li>${escapeHTML(topic)}</li>`).join('')}</ul>
+    `;
+
+    document.querySelector('footer').textContent = `© ${content.year} ${content.owner} · BLOG · CYBERSECURITY PORTFOLIO`;
+  }
+
+  renderBlogContent();
+
+  document.querySelector('.posts').addEventListener('click', (event) => {
+    if (event.target.closest('a')) return;
+    const card = event.target.closest('.post-card');
+    if (card?.dataset.url && card.dataset.url !== '#') {
+      window.location.href = card.dataset.url;
+    }
+  });
+
+  document.querySelector('.posts').addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.post-card');
+    if (card?.dataset.url && card.dataset.url !== '#') {
+      event.preventDefault();
+      window.location.href = card.dataset.url;
+    }
+  });
+
+  const nav = document.querySelector('nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>

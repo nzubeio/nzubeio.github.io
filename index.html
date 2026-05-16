@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nzube Igweamaka — SOC Analyst in Training</title>
+<link rel="icon" type="image/jpeg" href="assets/profile.jpg?v=20260516" />
+<link rel="apple-touch-icon" href="assets/profile.jpg?v=20260516" />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #060b14;
+    --surface: #0d1627;
+    --surface2: #111e35;
+    --border: #1a2f52;
+    --accent: #1565c0;
+    --accent2: #2196f3;
+    --accent3: #00e5ff;
+    --text: #c9d8f0;
+    --muted: #4a6080;
+    --white: #f0f6ff;
+    --green: #00e676;
+    --red: #ff5252;
+    --yellow: #ffd740;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  img, svg, video { max-width: 100%; height: auto; }
+  a, span, p, h1, h2, h3, div { overflow-wrap: anywhere; }
+
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 4rem;
+    background: rgba(6,11,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-avatar {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    object-position: center 34%;
+    border: 1px solid rgba(0,229,255,0.55);
+    border-radius: 50%;
+    background: var(--surface2);
+    box-shadow: 0 0 10px rgba(0,229,255,0.12);
+  }
+  .nav-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.14rem; color: var(--accent3);
+    letter-spacing: 2px;
+  }
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .nav-toggle span,
+  .nav-toggle::before,
+  .nav-toggle::after {
+    content: '';
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--accent3);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .nav-toggle span,
+  .nav-toggle::before,
+  .nav-toggle::after { transform: none; }
+  nav.nav-open .nav-toggle span { opacity: 0; }
+  nav.nav-open .nav-toggle::before { transform: translateY(7px) rotate(45deg); }
+  nav.nav-open .nav-toggle::after { transform: translateY(-7px) rotate(-45deg); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem; color: var(--muted);
+    text-decoration: none; letter-spacing: 2px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent3); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+    padding: 8rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(21,101,192,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(21,101,192,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridScroll 20s linear infinite;
+  }
+  @keyframes gridScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+  .hero-glow {
+    position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(21,101,192,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; width: min(100%, 800px); margin-bottom: clamp(3rem, 8vh, 6rem); }
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem; color: var(--accent3);
+    letter-spacing: 4px; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: ''; display: inline-block;
+    width: 30px; height: 1px; background: var(--accent3);
+  }
+  h1.hero-name {
+    font-size: clamp(2.6rem, 6vw, 5.2rem);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--white);
+    letter-spacing: 0;
+    margin-bottom: 1rem;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  h1.hero-name span {
+    color: var(--accent2);
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+  .hero-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem; color: var(--muted);
+    letter-spacing: 3px; margin-bottom: 2rem;
+  }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.8;
+    color: var(--text); max-width: 560px;
+    margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    padding: 0.9rem 2rem; font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem; letter-spacing: 2px;
+    text-decoration: none; border-radius: 2px;
+    transition: all 0.2s; cursor: pointer; border: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    text-align: center; min-height: 48px;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+    border: 1px solid var(--accent2);
+  }
+  .btn-primary:hover { background: var(--accent2); box-shadow: 0 0 20px rgba(33,150,243,0.4); }
+  .btn-outline {
+    background: transparent; color: var(--accent3);
+    border: 1px solid var(--accent3);
+  }
+  .btn-outline:hover { background: rgba(0,229,255,0.08); }
+  .btn-download {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border);
+  }
+  .btn-download:hover {
+    border-color: var(--accent2);
+    color: var(--accent3);
+    background: rgba(33,150,243,0.08);
+  }
+
+  /* ── STATUS INDICATOR ── */
+  .status-bar {
+    position: relative;
+    display: grid; grid-template-columns: minmax(0, max-content); gap: 2rem; align-items: center;
+    border-top: 1px solid var(--border); padding-top: 2rem;
+  }
+  .status-item { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; min-width: 0; }
+  .status-label { color: var(--muted); letter-spacing: 2px; display: block; margin-bottom: 0.3rem; }
+  .status-val { color: var(--accent3); line-height: 1.5; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    display: inline-block; margin-right: 0.4rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--accent3);
+    letter-spacing: 4px; margin-bottom: 0.8rem;
+  }
+  h2.section-title {
+    font-size: 2.5rem; font-weight: 800;
+    color: var(--white); margin-bottom: 3rem;
+    letter-spacing: -1px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    gap: 4rem;
+    align-items: stretch;
+  }
+  .about-text {
+    display: block;
+  }
+  .about-text p { line-height: 1.9; margin-bottom: 1.2rem; color: var(--text); }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-photo {
+    float: right;
+    width: min(300px, 43%);
+    aspect-ratio: 4 / 3;
+    display: block;
+    object-fit: cover;
+    object-position: center 32%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    margin: 0 0 1rem 2rem;
+  }
+  .terminal {
+    background: #020509; border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+  }
+  .terminal-header {
+    background: var(--surface2); padding: 0.8rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .term-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .term-dot.r { background: #ff5f57; }
+  .term-dot.y { background: #febc2e; }
+  .term-dot.g { background: #28c840; }
+  .terminal-body {
+    padding: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.85;
+  }
+  .terminal-body div { white-space: normal; }
+  .t-prompt { color: var(--accent3); }
+  .t-cmd { color: var(--white); }
+  .t-out { color: var(--muted); }
+  .t-val { color: var(--green); }
+  .t-cursor { display: inline-block; width: 8px; height: 1em; background: var(--accent3); animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
+  .project-card {
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 2rem; border-radius: 4px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden; cursor: pointer;
+  }
+  .project-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+  .project-card:focus-visible {
+    outline: 2px solid var(--accent3);
+    outline-offset: 4px;
+  }
+  .project-image {
+    width: calc(100% + 4rem);
+    max-width: none;
+    height: 190px;
+    display: block;
+    object-fit: cover;
+    margin: -2rem -2rem 1.6rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .project-num { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 2px; margin-bottom: 1rem; }
+  .project-title { font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 0.8rem; }
+  .project-desc { font-size: 0.88rem; color: var(--text); line-height: 1.7; margin-bottom: 1.5rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.65rem;
+    padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+    color: var(--muted); letter-spacing: 1px;
+  }
+  .badge-coming {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'Share Tech Mono', monospace; font-size: 0.6rem;
+    padding: 0.2rem 0.6rem; border: 1px solid var(--yellow);
+    color: var(--yellow); letter-spacing: 2px;
+  }
+
+  /* ── PROJECT MODAL ── */
+  .project-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    place-items: center;
+    padding: 1.5rem;
+    background: rgba(2,5,9,0.78);
+    backdrop-filter: blur(10px);
+  }
+  .project-modal.open { display: grid; }
+  .project-modal-card {
+    width: min(100%, 720px);
+    max-height: min(86vh, 760px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background: var(--bg);
+    border: 1px solid var(--accent2);
+    border-radius: 6px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  }
+  .project-modal-card::-webkit-scrollbar { display: none; }
+  .project-modal-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: none;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .project-modal-image.has-image { display: block; }
+  .project-modal-body { padding: 1.6rem; }
+  .project-modal-top {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .project-modal-kicker {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+  .project-modal-title {
+    color: var(--white);
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  .project-modal-close {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--accent3);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .project-modal-close:hover { border-color: var(--accent3); }
+  .project-modal-desc {
+    color: var(--text);
+    line-height: 1.8;
+    margin: 1.2rem 0 1.4rem;
+  }
+  .project-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.8rem;
+  }
+  .project-modal-actions .btn { width: 100%; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .skill-item {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 1.2rem; display: flex; align-items: center; gap: 1rem;
+    border-radius: 4px; transition: border-color 0.2s;
+  }
+  .skill-item:hover { border-color: var(--accent2); }
+  .skill-icon { font-size: 1.5rem; }
+  .skill-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+  .skill-status { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-top: 0.15rem; }
+  .skill-status.learning { color: var(--accent3); }
+  .skill-status.planned { color: var(--yellow); }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--surface); }
+  .certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .cert-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+  .cert-image {
+    width: calc(100% + 3rem);
+    max-width: none;
+    height: 150px;
+    display: block;
+    object-fit: cover;
+    margin: -1.5rem -1.5rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .cert-status {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    padding: 0.25rem 0.65rem;
+    letter-spacing: 2px;
+  }
+  .cert-name {
+    color: var(--white);
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .cert-meta {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+  }
+  .cert-desc {
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  .cert-link {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--accent3);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+  .cert-link:hover { color: var(--white); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); text-align: center; }
+  .contact-inner { max-width: 1120px; margin: 0 auto; }
+  .contact-inner p { color: var(--text); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: nowrap; }
+    .contact-link {
+      font-family: 'Share Tech Mono', monospace; font-size: 0.75rem;
+      width: 160px;
+    padding: 0.8rem 1rem; border: 1px solid var(--border);
+    color: var(--text); text-decoration: none; letter-spacing: 2px;
+    transition: all 0.2s; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 46px;
+  }
+  .contact-link:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    text-align: center; padding: 2rem;
+    font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
+    color: var(--muted); letter-spacing: 2px;
+  }
+
+  @media (max-width: 1024px) {
+    nav { padding: 0.85rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    #hero { padding-inline: 2rem; }
+    section { padding: 5rem 2rem; }
+    .projects-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .about-grid { gap: 2.5rem; }
+    .about-photo { width: min(250px, 40%); margin-left: 1.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0.85rem 1.25rem; flex-direction: row; justify-content: space-between; gap: 1rem; }
+    .nav-toggle { display: inline-flex; flex-shrink: 0; }
+    .nav-links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      padding: 0.6rem 1.25rem 1rem;
+      background: rgba(6,11,20,0.97);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.25);
+    }
+    nav.nav-open .nav-links { display: flex; }
+    .nav-links li { border-top: 1px solid rgba(26,47,82,0.65); }
+    .nav-links a {
+      display: block;
+      padding: 0.9rem 0;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+    .nav-avatar { width: 38px; height: 38px; }
+    .nav-logo { font-size: 1rem; }
+    #hero { min-height: auto; padding: 6.75rem 1.25rem 3.5rem; }
+    .hero-grid { background-size: 44px 44px; }
+    .hero-glow { width: 360px; height: 360px; top: 8%; }
+    .hero-content { margin-bottom: 3rem; }
+    .hero-tag { font-size: 0.68rem; letter-spacing: 2px; margin-bottom: 1.1rem; }
+    .hero-tag::before { width: 22px; }
+    h1.hero-name {
+      font-size: clamp(2.1rem, 9.2vw, 4rem);
+      letter-spacing: 0;
+      line-height: 0.95;
+    }
+    .hero-title { font-size: 0.78rem; letter-spacing: 2px; line-height: 1.6; margin-bottom: 1.4rem; }
+    .hero-desc { font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .hero-btns { flex-direction: column; gap: 0.8rem; }
+    .btn { width: 100%; padding: 0.85rem 1rem; letter-spacing: 1.5px; }
+    .status-bar { grid-template-columns: 1fr; gap: 1.5rem; }
+    .status-label { font-size: 0.68rem; letter-spacing: 1.5px; }
+    .status-val { font-size: 0.82rem; }
+    section { padding: 4rem 1.25rem; }
+    .section-label { letter-spacing: 2px; }
+    h2.section-title { font-size: 2rem; margin-bottom: 2rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo {
+      float: none;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      margin: 0 0 1.5rem;
+    }
+    .terminal-body { padding: 1rem; font-size: 0.72rem; line-height: 1.75; }
+    .projects-grid,
+    .skills-grid,
+    .certifications-grid { grid-template-columns: 1fr; }
+    .project-card { padding: 1.3rem; }
+    .project-image {
+      width: calc(100% + 2.6rem);
+      height: 170px;
+      margin: -1.3rem -1.3rem 1.3rem;
+    }
+    .badge-coming {
+      position: static;
+      display: inline-flex;
+      margin-bottom: 1rem;
+    }
+    .contact-links { flex-wrap: wrap; gap: 0.8rem; }
+    .contact-link { width: 100%; padding-inline: 1rem; }
+    .project-modal { padding: 1rem; }
+    .project-modal-image { height: 180px; }
+    .project-modal-body { padding: 1.25rem; }
+    .project-modal-title { font-size: 1.35rem; }
+    .project-modal-actions { grid-template-columns: 1fr; }
+    .cert-image {
+      width: calc(100% + 2.6rem);
+      height: 140px;
+      margin: -1.3rem -1.3rem 1.2rem;
+    }
+    footer { padding: 1.5rem 1.25rem; line-height: 1.7; letter-spacing: 1px; }
+  }
+
+  @media (max-width: 420px) {
+    nav { padding-inline: 1rem; }
+    .nav-links { padding-inline: 1rem; }
+    #hero { padding-inline: 1rem; }
+    section { padding-inline: 1rem; }
+    .hero-tag { align-items: flex-start; }
+    .hero-tag::before { margin-top: 0.45rem; flex: 0 0 18px; }
+    h1.hero-name { font-size: clamp(1.85rem, 8.8vw, 2.8rem); }
+    .hero-title,
+    .btn,
+    .contact-link { letter-spacing: 1px; }
+    .status-bar { padding-top: 1.5rem; }
+    .terminal-body { font-size: 0.68rem; }
+    .skill-item { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html" aria-label="Go to homepage top">
+    <img class="nav-avatar" src="assets/profile.jpg" alt="Nzube profile photo" />
+    <div class="nav-logo">NZUBE</div>
+  </a>
+  <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#certifications">CERTIFICATIONS</a></li>
+    <li><a href="blog.html">BLOG</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">CYBERSECURITY PORTFOLIO</div>
+    <h1 class="hero-name">Nzube<br/><span>Igweamaka</span></h1>
+    <div class="hero-title">ASPIRING SOC ANALYST · BLUE TEAM</div>
+    <p class="hero-desc">
+      Building the skills to defend digital infrastructure — one log, one alert, one lab at a time.
+      Documenting my journey from zero to SOC analyst in public.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">VIEW PROJECTS</a>
+      <a href="#contact" class="btn btn-outline">GET IN TOUCH</a>
+      <a href="https://nzubeio.github.io/resume.pdf" class="btn btn-download" target="_blank" rel="noopener">VIEW RESUME</a>
+    </div>
+  </div>
+  <div class="status-bar">
+    <div class="status-item">
+      <span class="status-label">CURRENT STATUS</span>
+      <span class="status-val"><span class="dot"></span>ACTIVELY LEARNING</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 01 — ABOUT</div>
+  <h2 class="section-title">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <img class="about-photo" src="assets/profile.jpg" alt="Nzube Igweamaka profile photo" />
+      <p>
+        I'm <strong style="color:var(--white)">Nzube Igweamaka</strong>, a cybersecurity enthusiast on a deliberate mission to enter the Security Operations Center (SOC) field. I believe in learning in public — every lab, every writeup, and every project on this portfolio is a record of real progress.
+      </p>
+      <p>
+        My focus is on the <strong style="color:var(--accent3)">Blue Team</strong>: threat detection, log analysis, incident response, and SIEM tooling. I'm building foundations first — networking, Linux, and core security concepts — before diving deep into SOC-specific tools like Splunk and Microsoft Sentinel.
+      </p>
+      <p>
+        I document everything so others on the same path can learn alongside me. Let's build together.
+      </p>
+    </div>
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="term-dot r"></div>
+        <div class="term-dot y"></div>
+        <div class="term-dot g"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">nzube@portfolio:~$</span> <span class="t-cmd">cat about.json</span></div>
+        <div class="t-out">{</div>
+        <div class="t-out">&nbsp;&nbsp;"name": <span class="t-val">"Nzube Igweamaka"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;"role": <span class="t-val">"Aspiring SOC Analyst"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;"team": <span class="t-val">"Blue Team 🛡️"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;"learning": <span class="t-val">["Networking", "Linux",</span></div>
+        <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"SIEM", "Log Analysis"]</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;"goal": <span class="t-val">"SOC Tier 1 Role"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;"open_to_work": <span class="t-val">true</span></div>
+        <div class="t-out">}</div>
+        <div><span class="t-prompt">nzube@portfolio:~$</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 02 — PROJECTS</div>
+  <h2 class="section-title">Labs & Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <img class="project-image" src="assets/project-home-soc-lab.svg" alt="Home SOC lab dashboard project preview" />
+      <div class="badge-coming">IN PROGRESS</div>
+      <div class="project-num">PROJECT_01</div>
+      <div class="project-title">Home SOC Lab Setup</div>
+      <div class="project-desc">Building a personal SOC environment using free and open-source tools. Setting up log ingestion, alerting, and a basic detection pipeline from scratch.</div>
+      <div class="project-tags">
+        <span class="tag">VIRTUALBOX</span>
+        <span class="tag">SPLUNK FREE</span>
+        <span class="tag">LINUX</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="badge-coming">PLANNED</div>
+      <div class="project-num">PROJECT_02</div>
+      <div class="project-title">Log Analysis Lab</div>
+      <div class="project-desc">Analyzing real-world sample Windows and Linux logs to identify suspicious activity, failed logins, privilege escalations, and lateral movement patterns.</div>
+      <div class="project-tags">
+        <span class="tag">SPLUNK</span>
+        <span class="tag">WINDOWS LOGS</span>
+        <span class="tag">LINUX LOGS</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="badge-coming">PLANNED</div>
+      <div class="project-num">PROJECT_03</div>
+      <div class="project-title">Network Traffic Analysis</div>
+      <div class="project-desc">Capturing live network traffic and analyzing packet captures (PCAPs) to identify port scans, C2 beaconing, and other network-based threats.</div>
+      <div class="project-tags">
+        <span class="tag">WIRESHARK</span>
+        <span class="tag">PCAP</span>
+        <span class="tag">TCPDUMP</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="badge-coming">PLANNED</div>
+      <div class="project-num">PROJECT_04</div>
+      <div class="project-title">Python Security Scripts</div>
+      <div class="project-desc">Writing Python scripts for security automation: log file parsers, IP reputation checkers, simple port scanners, and alert aggregators.</div>
+      <div class="project-tags">
+        <span class="tag">PYTHON</span>
+        <span class="tag">AUTOMATION</span>
+        <span class="tag">SCRIPTING</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="badge-coming">PLANNED</div>
+      <div class="project-num">PROJECT_05</div>
+      <div class="project-title">TryHackMe SOC Writeups</div>
+      <div class="project-desc">Detailed writeups for completed TryHackMe rooms — focusing on the SOC Level 1 learning path. Documenting methodology, tools used, and key learnings.</div>
+      <div class="project-tags">
+        <span class="tag">TRYHACKME</span>
+        <span class="tag">SOC PATH</span>
+        <span class="tag">WRITEUPS</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="badge-coming">PLANNED</div>
+      <div class="project-num">PROJECT_06</div>
+      <div class="project-title">OSINT Investigation Lab</div>
+      <div class="project-desc">Practicing open-source intelligence gathering techniques using tools like Maltego, Shodan, and TheHarvester on target machines in a controlled environment.</div>
+      <div class="project-tags">
+        <span class="tag">OSINT</span>
+        <span class="tag">SHODAN</span>
+        <span class="tag">MALTEGO</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 03 — SKILLS</div>
+  <h2 class="section-title">Tools & Technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-icon">🐧</div>
+      <div>
+        <div class="skill-name">Linux</div>
+        <div class="skill-status learning">LEARNING</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🔍</div>
+      <div>
+        <div class="skill-name">Splunk</div>
+        <div class="skill-status planned">UP NEXT</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🌐</div>
+      <div>
+        <div class="skill-name">Wireshark</div>
+        <div class="skill-status planned">UP NEXT</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🐍</div>
+      <div>
+        <div class="skill-name">Python</div>
+        <div class="skill-status planned">PLANNED</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">📡</div>
+      <div>
+        <div class="skill-name">Nmap</div>
+        <div class="skill-status planned">PLANNED</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">💻</div>
+      <div>
+        <div class="skill-name">Bash Scripting</div>
+        <div class="skill-status planned">PLANNED</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">☁️</div>
+      <div>
+        <div class="skill-name">MS Sentinel</div>
+        <div class="skill-status planned">PLANNED</div>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🕵️</div>
+      <div>
+        <div class="skill-name">OSINT Tools</div>
+        <div class="skill-status planned">PLANNED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">// 04 — CERTIFICATIONS</div>
+  <h2 class="section-title">Certifications</h2>
+  <div class="certifications-grid">
+    <div class="cert-card">
+      <img class="cert-image" src="assets/cert-security-plus.svg" alt="Security Plus certification badge placeholder" />
+      <div class="cert-status">TARGET CERT</div>
+      <div class="cert-name">CompTIA Security+</div>
+      <div class="cert-meta">CompTIA · In Progress</div>
+      <div class="cert-desc">Foundational cybersecurity certification covering threats, architecture, operations, governance, and risk.</div>
+      <a class="cert-link" href="#">VIEW CREDENTIAL</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="text-align:center">// 05 — CONTACT</div>
+  <h2 class="section-title" style="text-align:center">Let's Connect</h2>
+  <div class="contact-inner">
+    <p>I'm open to learning opportunities, mentorship, collaboration, and entry-level SOC roles. If you're a recruiter, a fellow learner, or just someone passionate about cybersecurity — reach out!</p>
+    <div class="contact-links">
+        <a href="https://github.com/nzubeio" class="contact-link" target="_blank">⌥ GITHUB</a>
+        <a href="https://linkedin.com/in/nzubeio" class="contact-link" target="_blank">⌥ LINKEDIN</a>
+        <a href="https://medium.com/@nzubeio" class="contact-link" target="_blank">⌥ MEDIUM</a>
+        <a href="https://x.com/nzubeio" class="contact-link" target="_blank">⌥ X</a>
+        <a href="https://tryhackme.com/p/nzubeio" class="contact-link" target="_blank">⌥ TRYHACKME</a>
+      <a href="mailto:nzube@email.com" class="contact-link">⌥ EMAIL</a>
+    </div>
+  </div>
+</section>
+
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+    <img class="project-modal-image" src="" alt="" />
+    <div class="project-modal-body">
+      <div class="project-modal-top">
+        <div>
+          <div class="project-modal-kicker"></div>
+          <h3 class="project-modal-title" id="projectModalTitle"></h3>
+        </div>
+        <button class="project-modal-close" type="button" aria-label="Close project details">×</button>
+      </div>
+      <p class="project-modal-desc"></p>
+      <div class="project-tags project-modal-tags"></div>
+      <div class="project-modal-actions">
+        <a class="btn btn-outline project-modal-blog" href="#">VIEW BLOG</a>
+        <a class="btn btn-primary project-modal-code" href="#">VIEW CODE</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 NZUBE IGWEAMAKA · BUILT IN PUBLIC · CYBERSECURITY PORTFOLIO
+</footer>
+
+<script src="content.js?v=20260515-project-modal"></script>
+<script>
+  const content = window.siteContent;
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }[char]));
+  const tagsHTML = (tags) => (tags || []).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
+  let activeProjectIndex = null;
+
+  function renderHomeContent() {
+    if (!content) return;
+
+    document.title = `${content.about.terminal.name} — SOC Analyst in Training`;
+    document.querySelector('.nav-avatar').src = content.nav.avatar;
+    document.querySelector('.nav-logo').textContent = content.nav.name;
+    document.querySelector('.hero-tag').textContent = content.hero.tag;
+    document.querySelector('.hero-name').innerHTML = `${escapeHTML(content.hero.firstName)}<br/><span>${escapeHTML(content.hero.lastName)}</span>`;
+    document.querySelector('.hero-title').textContent = content.hero.title;
+    document.querySelector('.hero-desc').textContent = content.hero.description;
+    document.querySelector('.hero-btns').innerHTML = `
+      <a href="#projects" class="btn btn-primary">VIEW PROJECTS</a>
+      <a href="#contact" class="btn btn-outline">GET IN TOUCH</a>
+      <a href="${escapeHTML(content.hero.cv.url)}" class="btn btn-download" target="_blank" rel="noopener">${escapeHTML(content.hero.cv.label)}</a>
+    `;
+
+    document.querySelector('.status-bar').innerHTML = content.statusItems.map((item) => `
+      <div class="status-item">
+        <span class="status-label">${escapeHTML(item.label)}</span>
+        <span class="status-val">${item.dot ? '<span class="dot"></span>' : ''}${escapeHTML(item.value)}</span>
+      </div>
+    `).join('');
+
+    document.querySelector('.about-text').innerHTML = `
+      <img class="about-photo" src="${escapeHTML(content.nav.avatar)}" alt="${escapeHTML(content.about.terminal.name)} profile photo" />
+      ${content.about.paragraphs.map((paragraph) => `<p>${escapeHTML(paragraph)}</p>`).join('')}
+    `;
+    document.querySelector('.terminal-body').innerHTML = `
+      <div><span class="t-prompt">nzube@portfolio:~$</span> <span class="t-cmd">cat about.json</span></div>
+      <div class="t-out">{</div>
+      <div class="t-out">&nbsp;&nbsp;"name": <span class="t-val">"${escapeHTML(content.about.terminal.name)}"</span>,</div>
+      <div class="t-out">&nbsp;&nbsp;"role": <span class="t-val">"${escapeHTML(content.about.terminal.role)}"</span>,</div>
+      <div class="t-out">&nbsp;&nbsp;"focus": <span class="t-val">"${escapeHTML(content.about.terminal.focus)}"</span>,</div>
+      <div class="t-out">&nbsp;&nbsp;"learning": <span class="t-val">"${escapeHTML(content.about.terminal.learning)}"</span></div>
+      <div class="t-out">}</div>
+      <div><span class="t-prompt">nzube@portfolio:~$</span> <span class="t-cursor"></span></div>
+    `;
+
+    document.querySelector('.projects-grid').innerHTML = content.projects.map((project, index) => `
+      <div class="project-card" tabindex="0" role="button" data-project-index="${index}" aria-label="Open details for ${escapeHTML(project.title)}">
+        ${project.image ? `<img class="project-image" src="${escapeHTML(project.image)}" alt="${escapeHTML(project.imageAlt || project.title)}" />` : ''}
+        <div class="badge-coming">${escapeHTML(project.status)}</div>
+        <div class="project-num">${escapeHTML(project.number)}</div>
+        <div class="project-title">${escapeHTML(project.title)}</div>
+        <div class="project-desc">${escapeHTML(project.description)}</div>
+        <div class="project-tags">${tagsHTML(project.tags)}</div>
+      </div>
+    `).join('');
+
+    document.querySelector('.skills-grid').innerHTML = content.skills.map((skill) => `
+      <div class="skill-item">
+        <div class="skill-icon">${escapeHTML(skill.icon)}</div>
+        <div>
+          <div class="skill-name">${escapeHTML(skill.name)}</div>
+          <div class="skill-status ${escapeHTML(skill.tone)}">${escapeHTML(skill.status)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    document.querySelector('.certifications-grid').innerHTML = content.certifications.map((cert) => `
+      <div class="cert-card">
+        ${cert.image ? `<img class="cert-image" src="${escapeHTML(cert.image)}" alt="${escapeHTML(cert.imageAlt || cert.name)}" />` : ''}
+        <div class="cert-status">${escapeHTML(cert.status)}</div>
+        <div class="cert-name">${escapeHTML(cert.name)}</div>
+        <div class="cert-meta">${escapeHTML(cert.issuer)} · ${escapeHTML(cert.date)}</div>
+        <div class="cert-desc">${escapeHTML(cert.description)}</div>
+        <a class="cert-link" href="${escapeHTML(cert.url)}" ${cert.url.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>VIEW CREDENTIAL</a>
+      </div>
+    `).join('');
+
+    document.querySelector('#contact .section-title').textContent = content.contact.heading;
+    document.querySelector('.contact-inner p').textContent = content.contact.text;
+    document.querySelector('.contact-links').innerHTML = content.contactLinks.map((link) => `
+      <a href="${escapeHTML(link.url)}" class="contact-link" ${link.url.startsWith('http') ? 'target="_blank"' : ''}>⌥ ${escapeHTML(link.label)}</a>
+    `).join('');
+
+    document.querySelector('footer').textContent = `© ${content.year} ${content.owner} · BUILT IN PUBLIC · CYBERSECURITY PORTFOLIO`;
+  }
+
+  renderHomeContent();
+
+  const projectModal = document.querySelector('#projectModal');
+  const projectModalImage = projectModal.querySelector('.project-modal-image');
+  const projectModalKicker = projectModal.querySelector('.project-modal-kicker');
+  const projectModalTitle = projectModal.querySelector('.project-modal-title');
+  const projectModalDesc = projectModal.querySelector('.project-modal-desc');
+  const projectModalTags = projectModal.querySelector('.project-modal-tags');
+  const projectModalBlog = projectModal.querySelector('.project-modal-blog');
+  const projectModalCode = projectModal.querySelector('.project-modal-code');
+  const projectModalClose = projectModal.querySelector('.project-modal-close');
+
+  function openProjectModal(index) {
+    const project = content.projects[index];
+    if (!project) return;
+
+    activeProjectIndex = index;
+    projectModalKicker.textContent = `${project.number} · ${project.status}`;
+    projectModalTitle.textContent = project.title;
+    projectModalDesc.textContent = project.description;
+    projectModalTags.innerHTML = tagsHTML(project.tags);
+
+    if (project.image) {
+      projectModalImage.src = project.image;
+      projectModalImage.alt = project.imageAlt || project.title;
+      projectModalImage.classList.add('has-image');
+    } else {
+      projectModalImage.removeAttribute('src');
+      projectModalImage.alt = '';
+      projectModalImage.classList.remove('has-image');
+    }
+
+    projectModalBlog.href = project.blogUrl || 'blog.html';
+    projectModalCode.href = project.codeUrl || 'https://github.com/nzubeio';
+    projectModalCode.target = projectModalCode.href.startsWith('http') ? '_blank' : '';
+    projectModalCode.rel = projectModalCode.href.startsWith('http') ? 'noopener' : '';
+
+    projectModal.classList.add('open');
+    projectModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    projectModalClose.focus();
+  }
+
+  function closeProjectModal() {
+    projectModal.classList.remove('open');
+    projectModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    if (activeProjectIndex !== null) {
+      document.querySelector(`[data-project-index="${activeProjectIndex}"]`)?.focus();
+      activeProjectIndex = null;
+    }
+  }
+
+  document.querySelector('.projects-grid').addEventListener('click', (event) => {
+    const card = event.target.closest('.project-card');
+    if (!card) return;
+    openProjectModal(Number(card.dataset.projectIndex));
+  });
+
+  document.querySelector('.projects-grid').addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.project-card');
+    if (!card) return;
+    event.preventDefault();
+    openProjectModal(Number(card.dataset.projectIndex));
+  });
+
+  projectModalClose.addEventListener('click', closeProjectModal);
+  projectModal.addEventListener('click', (event) => {
+    if (event.target === projectModal) closeProjectModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && projectModal.classList.contains('open')) {
+      closeProjectModal();
+    }
+  });
+
+  const nav = document.querySelector('nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
