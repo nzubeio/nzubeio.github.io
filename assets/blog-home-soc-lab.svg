@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Home SOC lab dashboard illustration</title>
+  <desc id="desc">A dark cybersecurity dashboard with log rows, signal lines, and alert panels.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.55" stop-color="#0d1b2f"/>
+      <stop offset="1" stop-color="#06101d"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00e5ff"/>
+      <stop offset="1" stop-color="#2196f3"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.35" stroke="#17365f" stroke-width="1">
+    <path d="M0 105H1200M0 210H1200M0 315H1200M0 420H1200M0 525H1200M0 630H1200"/>
+    <path d="M120 0V675M240 0V675M360 0V675M480 0V675M600 0V675M720 0V675M840 0V675M960 0V675M1080 0V675"/>
+  </g>
+  <rect x="70" y="72" width="1060" height="530" rx="10" fill="#07101c" stroke="#1a2f52" stroke-width="2"/>
+  <rect x="70" y="72" width="1060" height="58" rx="10" fill="#111e35"/>
+  <circle cx="108" cy="101" r="8" fill="#ff5f57"/>
+  <circle cx="136" cy="101" r="8" fill="#febc2e"/>
+  <circle cx="164" cy="101" r="8" fill="#28c840"/>
+  <text x="210" y="108" fill="#00e5ff" font-family="Consolas, monospace" font-size="24" letter-spacing="4">HOME SOC LAB // LOG PIPELINE</text>
+  <g font-family="Consolas, monospace" font-size="18">
+    <text x="110" y="178" fill="#4a6080">TIME</text>
+    <text x="250" y="178" fill="#4a6080">HOST</text>
+    <text x="430" y="178" fill="#4a6080">EVENT</text>
+    <text x="790" y="178" fill="#4a6080">STATUS</text>
+    <g fill="#c9d8f0">
+      <text x="110" y="225">10:42:11</text><text x="250" y="225">ubuntu-srv</text><text x="430" y="225">ssh login accepted</text><text x="790" y="225" fill="#00e676">NORMAL</text>
+      <text x="110" y="274">10:44:02</text><text x="250" y="274">win-lab-01</text><text x="430" y="274">failed login attempt</text><text x="790" y="274" fill="#ffd740">REVIEW</text>
+      <text x="110" y="323">10:44:18</text><text x="250" y="323">win-lab-01</text><text x="430" y="323">failed login attempt</text><text x="790" y="323" fill="#ffd740">REVIEW</text>
+      <text x="110" y="372">10:45:07</text><text x="250" y="372">splunk-free</text><text x="430" y="372">alert threshold matched</text><text x="790" y="372" fill="#00e5ff">TRIAGE</text>
+    </g>
+  </g>
+  <g transform="translate(740 414)">
+    <rect width="335" height="120" rx="6" fill="#0d1627" stroke="#1a2f52"/>
+    <text x="24" y="38" fill="#4a6080" font-family="Consolas, monospace" font-size="16" letter-spacing="3">DETECTION SIGNAL</text>
+    <polyline points="24,88 76,78 126,84 178,45 230,62 285,34" fill="none" stroke="url(#cyan)" stroke-width="4" filter="url(#glow)"/>
+    <circle cx="178" cy="45" r="6" fill="#00e5ff"/>
+    <circle cx="285" cy="34" r="6" fill="#00e5ff"/>
+  </g>
+  <g transform="translate(110 430)">
+    <rect width="540" height="104" rx="6" fill="#0d1627" stroke="#1a2f52"/>
+    <text x="26" y="38" fill="#00e5ff" font-family="Consolas, monospace" font-size="18">search index=lab failed login | stats count by src_ip</text>
+    <text x="26" y="74" fill="#c9d8f0" font-family="Consolas, monospace" font-size="18">result: 12 attempts from 192.168.56.24</text>
+  </g>
+</svg>
