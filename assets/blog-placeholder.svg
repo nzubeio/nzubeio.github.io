@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Blog image placeholder</title>
+  <desc id="desc">Cybersecurity themed placeholder for a blog cover image.</desc>
+  <rect width="1200" height="675" fill="#060b14"/>
+  <path d="M0 95H1200M0 210H1200M0 325H1200M0 440H1200M0 555H1200M120 0V675M300 0V675M480 0V675M660 0V675M840 0V675M1020 0V675" stroke="#15365f" stroke-opacity=".45" stroke-width="2"/>
+  <rect x="130" y="120" width="940" height="435" rx="8" fill="#0d1627" stroke="#2196f3" stroke-width="3"/>
+  <text x="170" y="205" fill="#00e5ff" font-family="monospace" font-size="32" letter-spacing="10">FIELD NOTE</text>
+  <text x="170" y="315" fill="#f0f6ff" font-family="Arial, sans-serif" font-size="76" font-weight="700">Blog Cover</text>
+  <text x="170" y="385" fill="#c9d8f0" font-family="Arial, sans-serif" font-size="34">Replace this with your post image.</text>
+  <rect x="170" y="455" width="180" height="52" fill="none" stroke="#1a2f52" stroke-width="3"/>
+  <rect x="380" y="455" width="180" height="52" fill="none" stroke="#1a2f52" stroke-width="3"/>
+  <rect x="590" y="455" width="180" height="52" fill="none" stroke="#1a2f52" stroke-width="3"/>
+</svg>
