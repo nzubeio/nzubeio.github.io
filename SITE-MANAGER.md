@@ -129,6 +129,57 @@ assets/cert-security-plus.png
 
 Avoid spaces in filenames. Use hyphens instead.
 
+## Add Images Or Videos Inside A Blog Post
+
+Inside any file in `posts/`, use `../assets/` for images and videos.
+
+Single image with a caption:
+
+```html
+<figure class="post-media">
+  <img src="../assets/blog-authentication-logs.png" alt="Authentication log screenshot">
+  <figcaption>Authentication logs from the lab environment.</figcaption>
+</figure>
+```
+
+Two images side by side on desktop, stacked on mobile:
+
+```html
+<div class="media-grid">
+  <figure class="post-media">
+    <img src="../assets/before-alert.png" alt="Before alert tuning">
+    <figcaption>Before tuning.</figcaption>
+  </figure>
+  <figure class="post-media">
+    <img src="../assets/after-alert.png" alt="After alert tuning">
+    <figcaption>After tuning.</figcaption>
+  </figure>
+</div>
+```
+
+Local video:
+
+```html
+<figure class="post-media">
+  <video controls>
+    <source src="../assets/soc-lab-demo.mp4" type="video/mp4">
+  </video>
+  <figcaption>Short demo of the lab workflow.</figcaption>
+</figure>
+```
+
+YouTube video:
+
+```html
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+    title="Video title"
+    allowfullscreen>
+  </iframe>
+</div>
+```
+
 ## GitHub Pages Workflow
 
 1. Edit files locally.

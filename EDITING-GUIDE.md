@@ -61,6 +61,30 @@ For blog images, put the image in `assets`, then set `image` to that path. Examp
 image: "assets/my-blog-image.png"
 ```
 
+To add images or videos inside the full article page, paste one of these inside the `<article>` where you want it:
+
+```html
+<figure class="post-media">
+  <img src="../assets/my-screenshot.png" alt="Describe the screenshot">
+  <figcaption>Short caption for the image.</figcaption>
+</figure>
+```
+
+```html
+<figure class="post-media">
+  <video controls>
+    <source src="../assets/my-demo.mp4" type="video/mp4">
+  </video>
+  <figcaption>Short caption for the video.</figcaption>
+</figure>
+```
+
+```html
+<div class="video-embed">
+  <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID" title="Video title" allowfullscreen></iframe>
+</div>
+```
+
 If you also publish the same post on Medium, show a button at the bottom of the article page like this:
 
 ```js
